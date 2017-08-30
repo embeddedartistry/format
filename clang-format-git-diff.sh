@@ -1,5 +1,5 @@
 #!/bin/bash
 
-git ls-files -zm '*.h|*.c|*.cpp|*.hpp' | xargs clang-format -style=file -i -fallback-style=none
+clang-format -style=file -fallback-style=none -i `git ls-files -om "*.[ch]" "*.[hc]pp"`
 
 exit 0

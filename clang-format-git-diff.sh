@@ -1,5 +1,5 @@
 #!/bin/bash
 
-git diff --name-only | xargs clang-format -style=file -i -fallback-style=none
+git ls-files -zm '*.h|*.c|*.cpp|*.hpp' | xargs clang-format -style=file -i -fallback-style=none
 
 exit 0

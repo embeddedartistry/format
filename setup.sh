@@ -1,6 +1,20 @@
 #!/bin/bash
 
-root=$PWD
+if [ -z "$1" ]; then
+	# if no argument is specified, use the default
+	format_file="clang_format"
+else
+	format_file=$1
+fi
+
+fmt_dir=$(dirname "$0")
+
+if [ "$fmt_dir" == "." ]; then
+	fmt_dir=$PWD
+else
+	#change to that directory to start our search
+	cd $fmt_dir
+fi
 
 repo=`basename \`git rev-parse --show-toplevel\``
 
@@ -17,8 +31,8 @@ for i in `seq 1 3`;
 do
 	cd ../
 	if [ -d ".git" ]; then
-		echo "Parent git repository found: deploying clang-format."
-		cp $root/style/clang_format $PWD/.clang-format
+		echo "Parent git repository found $i levels up: deploying style $format_file."
+		cp $fmt_dir/style/$format_file $PWD/.clang-format
 		exit 0
 	fi
 done

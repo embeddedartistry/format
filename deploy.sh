@@ -1,7 +1,13 @@
 #!/bin/bash
 
 root=$PWD
-echo "$root"
+
+repo=`basename \`git rev-parse --show-toplevel\``
+
+if [ "$repo" != "format" ]; then
+	echo "Please call this script from the format submodule"
+	exit 1
+fi
 
 # Assume we are a submodule: move up at least one directory
 # If it has a git directory, deploy clang-format there.

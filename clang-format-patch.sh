@@ -1,6 +1,7 @@
 #!/bin/bash
 
-clang-format -style=file -fallback-style=none -i `git ls-files -om "*.[ch]" "*.[hc]pp"`
+find . -iname *.h -o -iname *.c -o -iname *.cpp -o -iname *.hpp \
+	| xargs clang-format -style=file -i -fallback-style=none
 
 git diff > clang_format.patch
 
